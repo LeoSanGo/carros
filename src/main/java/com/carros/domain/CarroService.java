@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class CarroService {
@@ -27,17 +30,34 @@ public class CarroService {
 		return rep.findByTipo(tipo);
 	}
 	
-	public List<Carro> getCarrosFake() {
-		List<Carro> carros = new ArrayList<>();
-		carros.add(new Carro(1L, "Fusca"));
-		carros.add(new Carro(2L, "Brasilia"));
-		carros.add(new Carro(3L, "Chevette"));
-		return carros;
+	public Carro insert(Carro carro) {
+		Assert.isNull(carro.getId(), "Não foi possivel inserir o registro");
+		return rep.save(carro);
+		
 	}
 
-	public Iterable<Carro> getCarroByTipo(String tipo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Carro update(Carro carro, Long id) {
+		Assert.notNull(id, "Não foi possivel inserir o registro");
+		Optional<Carro> optional = getCarroById(id);
+		if (optional.isPresent()) {
+			Carro db = optional.get();
+			
+			db.setNome(carro.getNome());
+			db.setTipo(carro.getTipo());
+			System.out.println("Carro id: " + db.getId());
+			
+			rep.save(db);
+			return db;
+		} else {
+			throw new RuntimeException("Não foi possivel atualizar o registro");
+		}
+	}
+
+	public void delete(Long id) {
+		Optional<Carro> carro = getCarroById(id);
+		if (carro.isPresent()) {
+			rep.deleteById(id);
+		}
 	}
 
 }

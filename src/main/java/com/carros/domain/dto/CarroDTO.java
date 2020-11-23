@@ -11,6 +11,7 @@ public class CarroDTO {
 	
 	private Long id;
 	private String nome;
+	private String descricao;
 	private String tipo;
 	
 	public static CarroDTO create(Carro c) {

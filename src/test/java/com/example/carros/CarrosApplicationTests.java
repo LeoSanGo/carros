@@ -30,6 +30,7 @@ class CarrosApplicationTests {
 	public void testsave() {
 		Carro carro = new Carro();
 		carro.setNome("Ferrari");
+		carro.setDescricao("Versão 2");
 		carro.setTipo("esportivos");
 		
 		CarroDTO c = service.insert(carro);
@@ -43,20 +44,19 @@ class CarrosApplicationTests {
 		c = op.get();
 		assertEquals("Ferrari", c.getNome());
 		assertEquals("esportivos", c.getTipo());
+		assertEquals("Versão 2", c.getDescricao());
 		
 		service.delete(id);
 		
 		assertFalse(service.getCarroById(id).isPresent());
 	}
-	/**
-	 * 
+	
 	@Test
 	public void testLista() {
 		List<CarroDTO> carros = service.getCarros();
 		
 		assertEquals(30, carros.size());
 	}
-	
 	
 	 
 	@Test
@@ -79,5 +79,5 @@ class CarrosApplicationTests {
 		
 		assertEquals(0, service.getCarrosByTipo("x").size());
 	}
-	*/
+	
 }

@@ -14,6 +14,11 @@ public class CarroDTO {
 	private String descricao;
 	private String tipo;
 	
+	private String url_Foto;
+	private String url_Video;
+	private String latitude;
+	private String longitude;
+	
 	public static CarroDTO create(Carro c) {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(c, CarroDTO.class);

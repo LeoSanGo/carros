@@ -21,7 +21,7 @@ import com.carros.domain.dto.CarroDTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CarrosApplication.class)
-class CarrosApplicationTests {
+class CarroServiceTest {
 
 	@Autowired
 	private CarroService service;
